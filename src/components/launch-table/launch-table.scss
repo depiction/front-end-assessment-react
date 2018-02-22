@@ -1,0 +1,264 @@
+@import "../../scss/_variables.scss";
+@import "../../scss/_mixins.scss";
+
+.table-actions {
+	background: rgba(255, 255, 255, 0.1);
+	border: 1px solid $white;
+	border-radius: 10px;
+	color: $white;
+	padding: 18px;
+
+	.refresh {
+		background: transparent url('../../assets/images/refresh.svg') center center no-repeat;
+		background-size: 20px 20px;
+		border: 2px solid $white;
+		border-radius: 18px;
+		display: block;
+		float: left;
+		font-size: 0;
+		height: 36px;
+		width: 36px;
+	}
+
+	.notification {
+		float: left;
+		line-height: 36px;
+		margin: 0 0 0 18px;
+		opacity: 0;
+		transition: opacity 200ms ease-in-out;
+
+		&.show {
+			opacity: 1;
+		}
+	}
+
+	.filters {
+		clear: both;
+		padding-top: 10px;
+
+		label {
+			display: inline-block;
+			margin-top: 10px;
+			&:not(:last-of-type) {
+				margin-right: 15px;
+			}
+		}
+	}
+
+	.showing {
+		text-align: center;
+		margin-bottom: 0;
+	}
+
+	&:after {
+		clear: both;
+		content: "";
+		display: block;
+	}
+}
+
+.launch-table {
+	border-spacing: 0 12px;
+	text-align: left;
+	margin: 0;
+	width: 100%;
+	overflow-x: auto;
+
+	thead {
+		display: none;
+	}
+
+	th {
+		font-weight: 500;
+
+		&.launch-date {
+			cursor: pointer;
+			position: relative;
+
+			&:before {
+				background-color: $teal;
+				content: ' ';
+				display: block;
+				height: 4px;
+				left: 0;
+				position: absolute;
+				width: 100%;
+			}
+
+			&.asc:before {
+				top: 0;
+			}
+
+			&.desc:before {
+				bottom: 0;
+			}
+		}
+	}
+
+	tr {
+		border-radius: 10px;
+		border: 1px solid $white;
+	}
+
+    td {
+		background: rgba(255, 255, 255, 0.7);
+		border-left: 1px solid $white;
+		border-right: 1px solid $white;
+		color: $dark-gray;
+		display: block;
+		min-height: 19px;
+		padding: 5px 20px 5px 50%;
+		position: relative;
+
+		&:before {
+			content: attr(data-label);
+			position: absolute;
+			left: 18px;
+			font-weight: bold;
+		}
+
+		&:first-of-type {
+			border-top: 1px solid $white;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			padding-top: 15px;
+		}
+
+		&:last-of-type {
+			border-bottom: 1px solid $white;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+			padding-bottom: 15px;
+		}
+
+		.ellipsis {
+			border-collapse: collapse;
+			display: table;
+			table-layout: fixed;
+			white-space: nowrap;
+			width: 100%;
+
+			span {
+				display: table-cell;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+	}
+
+	.badge {
+		img {
+			min-height: 40px;
+			width: 40px;
+		}
+	}
+
+	.link {
+		background-image: url('../../assets/images/link.svg');
+		background-size: 20px 20px;
+		display: inline-block;
+		font-size: 0;
+		height: 20px;
+		vertical-align: middle;
+		width: 20px;
+	}
+}
+
+@media (min-width: 768px) {
+	.table-actions {
+		border-bottom-width: 0;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+
+		button {
+			float: left;
+		}
+
+		.filters {
+			clear: none;
+			float: right;
+			padding-top: 0;
+
+			label {
+				margin-top: 7px;
+
+				&:not(:last-of-type) {
+					margin-right: 25px;
+				}
+			}
+		}
+
+		.showing {
+			float: right;
+			margin: 8px 25px 0 0;
+			text-align: right;
+		}
+	}
+
+	.launch-table {
+		margin-top: -12px;
+
+		thead {
+			@include gradient($light-blue, $white, vertical);
+			color: $dark-blue;
+			display: table-header-group;
+			font-size: 17px;
+
+			th {
+				padding: 15px 20px;
+
+				&:first-of-type {
+					border-bottom-left-radius: 10px;
+				}
+
+				&:last-of-type {
+					border-bottom-right-radius: 10px;
+				}
+			}
+		}
+
+		td {
+			border: 1px solid $white;
+			border-left-width: 0;
+			border-right-width: 0;
+			display: table-cell;
+			padding: 15px 20px;
+
+			&:before {
+				display: none;
+			}
+
+			&:first-of-type {
+				border-left: 1px solid $white;
+				border-top-left-radius: 10px;
+				border-top-right-radius: 0;
+				border-bottom-left-radius: 10px;
+			}
+
+			&:last-of-type {
+				border-right: 1px solid $white;
+				border-top-right-radius: 10px;
+				border-bottom-left-radius: 0;
+				border-bottom-right-radius: 10px;
+			}
+
+			&.launch-date {
+				text-align: center;
+			}
+		}
+
+		.badge, .article {
+			text-align: center;
+		}
+	}
+}
+
+@media (min-width: 1000px) {
+	.launch-table {
+		thead {
+			th {
+				white-space: nowrap;
+			}
+		}
+	}
+}
