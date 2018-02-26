@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDom from 'react-dom';
 
 class LazyLoadImage extends Component {
 	componentDidMount() {
@@ -8,7 +7,6 @@ class LazyLoadImage extends Component {
 
 	createObserver() {
 		const component = this;
-		const element = ReactDom.findDOMNode(component);
 		const config = {
 			rootMargin: '100% 0px'
 		};
@@ -16,13 +14,13 @@ class LazyLoadImage extends Component {
 		let observer = new IntersectionObserver(function (entries, self) {
 			entries.forEach(entry => {
 				if (entry.isIntersecting) {
-					component.preloadImage(element);
-					observer.unobserve(element);
+					component.preloadImage(entry.target);
+					observer.unobserve(entry.target);
 				}
 			});
 		}, config);
 
-		observer.observe(element);
+		observer.observe(this.element);
 	}
 
 	preloadImage(img) {
@@ -33,7 +31,7 @@ class LazyLoadImage extends Component {
 
 	render() {
 		return (
-			<img data-src={this.props.src} alt={this.props.alt} />
+			<img data-src={this.props.src} alt={this.props.alt} ref={(e) => this.element = e} />
 		);
 	}
 }
